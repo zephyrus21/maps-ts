@@ -1,9 +1,7 @@
-import { User } from './User';
-import { Company } from './Company';
-
 //! one interface for other classes with same properties
 interface MarkerMap {
   location: { lat: number; lng: number };
+  markerContent(): string;
 }
 
 export class CustomMap {
@@ -20,12 +18,18 @@ export class CustomMap {
     });
   }
 
-  addMarker(marker: MarkerMap): void {
-    new google.maps.Marker({
+  addMarker(markerMap: MarkerMap): void {
+    const marker = new google.maps.Marker({
       map: this.googleMap,
-      position: { lat: marker.location.lat, lng: marker.location.lng },
+      position: { lat: markerMap.location.lat, lng: markerMap.location.lng },
+    });
+
+    marker.addListener('click', () => {
+      const infoWindow = new google.maps.InfoWindow({
+        content: markerMap.markerContent(),
+      });
+
+      infoWindow.open(this.googleMap, marker);
     });
   }
-
-  addCompanyMarker(company: Company): void {}
 }

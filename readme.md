@@ -1,7 +1,15 @@
-install the dependencies
+A simple app with just two markers on a map with random user and company
 
-`npm i`
+---
+
+install the dependencies,
+
+```
+npm i
+```
 
 then run
 
-`parcel index.html`
+```
+parcel index.html
+```
